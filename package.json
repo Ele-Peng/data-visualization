@@ -1,0 +1,32 @@
+{
+  "name": "data-visualization",
+  "version": "1.0.0",
+  "description": "some samples about data visualization",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -c-1 -p9090",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ele-Peng/data-visualization.git"
+  },
+  "keywords": [
+    "data-visualization"
+  ],
+  "author": "EllePeng",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-sprite": "^1.0.6",
+    "eslint-plugin-html": "^6.0.0",
+    "http-server": "^0.12.1"
+  },
+  "dependencies": {
+    "rough": "^3.0.1"
+  },
+  "bugs": {
+    "url": "https://github.com/Ele-Peng/data-visualization/issues"
+  },
+  "homepage": "https://github.com/Ele-Peng/data-visualization#readme"
+}
