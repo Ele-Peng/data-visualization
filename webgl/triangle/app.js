@@ -12,9 +12,11 @@ const gl = canvas.getContext("webgl");
 // position 变量名
 const vertex = `
   attribute vec2 position;
+  varying vec3 color;
 
   void main() {
     gl_PointSize = 1.0;
+    color = vec3(0.5 + position * 0.5, 0.0);
     gl_Position = vec4(position, 1.0, 1.0);
   }
 ` // 顶点着色器
@@ -29,9 +31,10 @@ const vertex = `
 // gl_FragColor 定义和改变图形颜色
 const fragment = `
   precision mediump float;
+  varying vec3 color;
 
   void main() {
-    gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
+    gl_FragColor = vec4(color, 1.0);
   }
 ` // 片元着色器
 // 片元着色器对像素点着色这个过程是并行的
