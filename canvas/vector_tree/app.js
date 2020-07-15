@@ -48,5 +48,5 @@ function drawBranch(context, v0, length, thickness, dir, bias) {
   }
 }
 
-const v0 = new Vector2D(256, 0)
+const v0 = new Vector2D(256, 128);
 drawBranch(ctx, v0, 50, 10, 1.57, 3); // 居中 π / 2 ≈ 1.57
