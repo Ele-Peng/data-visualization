@@ -40,5 +40,5 @@ function draw(points, strokeStyle = "black", fillStyle = null) {
 draw(regularShape(3, 128, 128, 100));  // 绘制三角形
 draw(regularShape(6, -64, 128, 50));  // 绘制六边形
 draw(regularShape(11, -64, -64, 30));  // 绘制十一边形
-draw(regularShape(60, 128, -64, 6));  // 绘制六十边形
+draw(regularShape(60, 128, -62, 6));  // 绘制六十边形
 
