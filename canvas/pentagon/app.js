@@ -15,7 +15,7 @@ for (let i = 1; i <= 4; i ++) {
 const polygon = [...points];
 ctx.save();
 ctx.translate(-128, 128);
-draw(polygon, ctx, {fillStyle: "nonzero"}); // default is nonzero, you can try "evenodd"
+draw(polygon, ctx, {fillStyle: "black"}); // default is nonzero, you can try "evenodd"
 ctx.restore();
 
 
@@ -28,10 +28,10 @@ const pentagon = [
 ]
 ctx.save();
 ctx.translate(128, 128);
-draw(pentagon, ctx, {fillStyle: "nonzero"});
+draw(pentagon, ctx, {fillStyle: "black"});
 ctx.restore();
 
-function draw(points, context, {strokeStyle = "black", fillStyle = null} = {}) {
+function draw(points, context, {strokeStyle = "black", fillStyle = null, rule = 'nonzero'} = {}) {
   context.strokeStyle = strokeStyle;
   context.beginPath();
   context.moveTo(...points[0]);
@@ -40,7 +40,7 @@ function draw(points, context, {strokeStyle = "black", fillStyle = null} = {}) {
   }
   if (fillStyle) {
     context.fillStyle = fillStyle;
-    context.fill();
+    context.fill(rule);
   }
   context.closePath();
   context.stroke();
