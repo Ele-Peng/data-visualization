@@ -8,7 +8,7 @@ const vertex = `
   attribute vec2 position;
   
   void main() {
-    gl_PositionSize = 1.0;
+    gl_PointSize = 1.0;
     gl_Position = vec4(position, 1.0, 1.0);
   }
 `
@@ -70,5 +70,5 @@ gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, cellsBuffer);
 gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, cells, gl.STATIC_DRAW);
 
 gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawArrays(gl.LINE_STRIP, cells.length, gl.UNSIGNED_SHORT, 0);
+gl.drawElements(gl.LINE_STRIP, cells.length, gl.UNSIGNED_SHORT, 0);
 
