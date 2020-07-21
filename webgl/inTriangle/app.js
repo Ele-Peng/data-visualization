@@ -101,7 +101,6 @@ canvas.addEventListener("mousemove", (event) => {
 })
 
 function inTriangle(p1, p2, p3, point) {
-  console.log("point", point)
   const a = p2.copy().sub(p1);
   const b = p3.copy().sub(p2);
   const c = p1.copy().sub(p3);
