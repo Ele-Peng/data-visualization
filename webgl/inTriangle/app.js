@@ -79,7 +79,7 @@ const colorLoc = gl.getUniformLocation(program, "u_color");
 gl.uniform4fv(colorLoc, [1, 0, 0, 1]);
 
 gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawElements(gl.LINE_STRIP, cells.length, gl.UNSIGNED_SHORT, 0);
+gl.drawElements(gl.TRIANGLES, cells.length, gl.UNSIGNED_SHORT, 0);
 
 
 const {left, top} = canvas.getBoundingClientRect();
@@ -97,6 +97,7 @@ canvas.addEventListener("mousemove", (event) => {
   } else {
     gl.uniform4fv(colorLoc, [1, 0, 0, 1]);
   }
+  gl.drawElements(gl.TRIANGLES, cells.length, gl.UNSIGNED_SHORT, 0);
 })
 
 function inTriangle(p1, p2, p3, point) {
@@ -128,7 +129,7 @@ function inTriangle(p1, p2, p3, point) {
 
 function isPointInPath({vertices, cells}, point) {
   let res = false;
-  for (let i = 0; i < cells.length; i ++) {
+  for (let i = 0; i < cells.length; i += 3) {
     const p1 = new Vector2D(...vertices[cells[i]]);
     const p2 = new Vector2D(...vertices[cells[i + 1]]);
     const p3 = new Vector2D(...vertices[cells[i + 2]]);
