@@ -26,20 +26,16 @@ const pentagon = [
   points[1],
   points[3]
 ]
-console.log(pentagon);
 ctx.save();
 ctx.translate(128, 128);
 draw(pentagon, ctx, {fillStyle: "nonzero"});
 ctx.restore();
 
 function draw(points, context, {strokeStyle = "black", fillStyle = null} = {}) {
-  console.log('fillStyle', fillStyle);
   context.strokeStyle = strokeStyle;
   context.beginPath();
   context.moveTo(...points[0]);
   for (let i = 1; i < points.length; i ++) {
-    console.log('i', i)
-    console.log('points[i]', points[i])
     context.lineTo(...points[i]);
   }
   if (fillStyle) {
