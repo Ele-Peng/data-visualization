@@ -30,6 +30,7 @@ gl.shaderSource(fragmentShader, fragment);
 gl.compileShader(fragmentShader);
 
 
+
 const program = gl.createProgram();
 gl.attachShader(program, vertexShader);
 gl.attachShader(program, fragmentShader);
