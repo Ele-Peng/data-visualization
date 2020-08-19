@@ -7,23 +7,54 @@ const gl = canvas.getContext("webgl");
 // 顶点着色器
 const vertex = `
   attribute vec2 position;
-  varying vec3 color;
+
+  uniform float u_rotation;
+  uniform float u_time;
+  uniform float u_duration;
+  uniform float u_scale;
+  uniform vec2 u_dir;
+
+  varying float vP;
 
   void main() {
+    float p = min(1.0, u_time / u_duration);
+    float rad = u_rotation + 3.14 * 10.0 * p;
+    float scale = u_scale * p * (2.0 - p);
+    mat3 translateMatrix = mat3(
+      1.0, 0.0, 0.0,
+      0.0, 1.0, 0.0,
+      offset.x, offset.y, 1.0
+    );
+    mat3 rotateMatrix = mat3(
+      cos(rad), sin(rad), 0.0,
+      -sin(rad), cos(rad), 0.0,
+      0.0, 0.0, 1.0
+    );
+    mat3 scaleMatrix = mat3(
+      scale, 0.0, 0.0,
+      0.0, scale, 0.0,
+      0.0, 0.0, 1.0
+    );
     gl_PointSize = 1.0;
-    color = vec3(0.5 + position * 0.5, 0.0);
-    gl_Position = vec4(position, 1.0, 1.0);
+    vec3 pos = translateMatrix * rotateMatrix * scaleMatrix * vec3(position, 1.0);
+    gl_Position = vec4(pos, 1.0);
+    vP = p;
   }
 `
 
 // 片元着色器
 const fragment = `
   precision mediump float;
-  varying vec3 color;
+  
+  uniform vec4 u_color;
 
-  void main() {
-    gl_FragColor = vec4(color, 1.0);
-  }
+  varying float vP;
+
+  void main()
+  {
+    gl_FragColor.xyz = u_color.xyz;
+    gl_FragColor.a = (1.0 - vP) * u_color.a;
+  }  
 `
 
 // 为着色器创造 shader 对象
