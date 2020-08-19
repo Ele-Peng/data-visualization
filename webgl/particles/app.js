@@ -109,7 +109,7 @@ function setUniforms(gl, {u_color, u_rotation, u_scale, u_time, u_duration, u_di
   gl.uniform1f(loc, u_scale);
 
   loc = gl.getUniformLocation(program, "u_time");
-  gl.uniform1f(loc, u_duration);
+  gl.uniform1f(loc, u_time);
 
   loc = gl.getUniformLocation(program, 'u_duration');
   gl.uniform1f(loc, u_duration);
@@ -139,14 +139,14 @@ gl.enableVertexAttribArray(vPosition);
 
 
 // 执行着色器程序完成绘制
-gl.clear(gl.COLOR_BUFFER_BIT);
-gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
+// gl.clear(gl.COLOR_BUFFER_BIT);
+// gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
 
 
 
 /****** 用 requestAnimationFrame 实现动画 ********/
 let triangles = [];
-function update() {
+function update(t) {
   for (let i = 0; i < 5 * Math.random(); i ++) {
     triangles.push(randomTriangles());
   }
