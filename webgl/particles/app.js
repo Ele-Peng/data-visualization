@@ -20,6 +20,7 @@ const vertex = `
     float p = min(1.0, u_time / u_duration);
     float rad = u_rotation + 3.14 * 10.0 * p;
     float scale = u_scale * p * (2.0 - p);
+    vec2 offset = 2.0 * u_dir * p * p;
     mat3 translateMatrix = mat3(
       1.0, 0.0, 0.0,
       0.0, 1.0, 0.0,
@@ -108,6 +109,9 @@ function setUniforms(gl, {u_color, u_rotation, u_scale, u_time, u_duration, u_di
   gl.uniform1f(loc, u_scale);
 
   loc = gl.getUniformLocation(program, "u_time");
+  gl.uniform1f(loc, u_duration);
+
+  loc = gl.getUniformLocation(program, 'u_duration');
   gl.uniform1f(loc, u_duration);
 
   loc = gl.getUniformLocation(program, "u_dir");
