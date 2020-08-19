@@ -50,7 +50,7 @@ gl.useProgram(program);
 
 /****** 创建三角形 ********/
 // 将数据存入缓冲区
-const position = new Float32Array([
+const points = new Float32Array([
   -1, -1,
   0, 1,
   1, -1
