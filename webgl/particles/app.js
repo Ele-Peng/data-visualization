@@ -79,6 +79,30 @@ gl.linkProgram(program);
 gl.useProgram(program);
 
 
+
+/****** 创建三角形 ********/
+// 将数据存入缓冲区
+const points = new Float32Array([
+  -1, -1,
+  0, 1,
+  1, -1
+])
+// 将定义好的数据写入 webgl 缓冲区
+const bufferId = gl.createBuffer(); // 创建一个缓冲对象
+gl.bindBuffer(gl.ARRAY_BUFFER, bufferId); // 将缓冲对象绑定为当前操作对象
+gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW); // 将数据写入缓冲对象
+
+// 将数据读取到 GPU
+const vPosition = gl.getAttribLocation(program, "position"); // 获取顶点着色器中 position 变量的地址
+gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
+gl.enableVertexAttribArray(vPosition);
+
+
+// 执行着色器程序完成绘制
+// gl.clear(gl.COLOR_BUFFER_BIT);
+// gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
+
+
 /****** 创建随机三角形 ********/
 function randomTriangles() {
   const u_color = [Math.random(), Math.random(), Math.random(), 1.0]; // 随机颜色
@@ -117,30 +141,6 @@ function setUniforms(gl, {u_color, u_rotation, u_scale, u_time, u_duration, u_di
   loc = gl.getUniformLocation(program, "u_dir");
   gl.uniform2fv(loc, u_dir);
 }
-
-
-
-/****** 创建三角形 ********/
-// 将数据存入缓冲区
-const points = new Float32Array([
-  -1, -1,
-  0, 1,
-  1, -1
-])
-// 将定义好的数据写入 webgl 缓冲区
-const bufferId = gl.createBuffer(); // 创建一个缓冲对象
-gl.bindBuffer(gl.ARRAY_BUFFER, bufferId); // 将缓冲对象绑定为当前操作对象
-gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW); // 将数据写入缓冲对象
-
-// 将数据读取到 GPU
-const vPosition = gl.getAttribLocation(program, "position"); // 获取顶点着色器中 position 变量的地址
-gl.vertexAttribPointer(vPosition, 2, gl.FLOAT, false, 0, 0);
-gl.enableVertexAttribArray(vPosition);
-
-
-// 执行着色器程序完成绘制
-// gl.clear(gl.COLOR_BUFFER_BIT);
-// gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
 
 
 
