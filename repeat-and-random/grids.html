@@ -9,7 +9,76 @@
   <canvas width="512px" height="512px"></canvas>
   <script src="../common/lib/gl-renderer.js"></script>
   <script>
+    const vertex = `
+      attribute vec2 a_vertexPosition;
+      attribute vec2 uv;
 
+      varying vec2 vUv;
+
+      void main() {
+        gl_PointSize = 1.0;
+        vUv = uv;
+        gl_Position = vec4(a_vertexPosition, 1, 1);
+      }
+    `
+
+    // step(a, b) if b < a, return 0; if b >= a return 1
+    const fragment = `
+      #ifdef GL_ES
+      precision mediump float;
+      #endif
+
+      varying vec2 vUv;
+      uniform float rows;
+
+      void main() {
+        vec2 st = fract(vUv * rows);
+        float d1 = step(st.x, 0.9);
+        float d2 = step(0.1, st.y);
+        gl_FragColor.rgb = mix(vec3(0.8), vec3(1.0), d1 * d2);
+        gl_FragColor.a = 1.0;
+      }
+    `
+
+    const canvas = document.querySelector("canvas");
+    const renderer = new GlRenderer(canvas);
+
+    const program = renderer.compileSync(fragment, vertex);
+    renderer.useProgram(program);
+    renderer.uniforms.rows = 1;
+
+    const rows = [1, 4, 16, 32, 64];
+    let idx = 0;
+    const timerId = setInterval(() => {
+      console.log("idx", idx);
+      renderer.uniforms.rows = rows[idx++];
+      if (idx > 4) {
+        clearInterval(timerId);
+      }
+    }, 1000);
+
+    renderer.setMeshData([{
+      positions: [
+        [-1, -1],
+        [-1, 1],
+        [1, 1],
+        [1, -1]
+      ],
+      attributes: {
+        uv: [ // 纹理坐标
+          [0, 0],
+          [0, 1],
+          [1, 1],
+          [1, 0]
+        ],
+      },
+      cells: [ // 三角剖分顶点坐标；代表的是顶点数组的索引下标，也就是positions数组里第几个点
+        [0, 1, 2],
+        [2, 0, 3]
+      ]
+    }])
+
+    renderer.render();
   </script>
 </body>
 </html>

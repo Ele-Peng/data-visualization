@@ -155,7 +155,7 @@ function update(t) {
   triangles.forEach((triangle) => {
     triangle.u_time = (performance.now() - triangle.startTime) / 1000;
     setUniforms(gl, triangle);
-    gl.drawArrays(gl.TRIANGLES, 0, position.length / 2);
+    gl.drawArrays(gl.TRIANGLES, 0, points.length / 2);
   });
   // 移除已经结束动画的三角形
   triangles = triangles.filter((triangle) => {
